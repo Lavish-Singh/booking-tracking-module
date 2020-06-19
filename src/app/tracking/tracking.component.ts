@@ -28,11 +28,12 @@ export class TrackingComponent implements OnInit {
     center: this.center,
     zoom: 17
   };
-  // ===============================Map initializing function================================ //
+  // =============================== Map initializing function ================================ //
   initMap() {
     this.map = new google.maps.Map(this.gmap.nativeElement,
     this.mapOptions);
 
+    // ============================ Set of lat lng for path ==================== //
     this.bookingCoordinates = [
       { lat: 30.7129, lng: 76.7093 },
       { lat: 30.7130, lng: 76.7086 },
@@ -57,6 +58,7 @@ export class TrackingComponent implements OnInit {
       { lat: 30.7135, lng: 76.6990 },
     ];
 
+    // ============================== Drawing booking path ==================== //
     this.bookingPath = new google.maps.Polyline({
       path: this.bookingCoordinates,
       geodesic: true,
@@ -66,6 +68,7 @@ export class TrackingComponent implements OnInit {
     });
     this.bookingPath.setMap(this.map);
 
+    // ============================= Placing Source Destination Marker ============ //
     this.startEndMarker = [
       { position: new google.maps.LatLng(30.7135, 76.6990) },
       { position: new google.maps.LatLng(30.7129, 76.7093) }
@@ -79,6 +82,7 @@ export class TrackingComponent implements OnInit {
       });
     }
 
+    // ============================ Placing vehicle marker at initial position ===== //
     this.carImageMarker = new google.maps.Marker({
       position: this.startEndMarker[0].position,
       icon: '../../assets/car.png',
@@ -90,16 +94,20 @@ export class TrackingComponent implements OnInit {
     }, 2000);
   }
 
-  // =========================================Vehicle Marker Movement Function======================================== //
+  // ========================================= Vehicle Marker Movement Function ======================================== //
   changeMarkerPosition(carImageMarker) {
     this.bookingTravelcounter++;
     for (let j = this.bookingCoordinates.length - this.bookingTravelcounter; j >= 0; j--) {
       const latlng = new google.maps.LatLng(this.bookingCoordinates[j].lat, this.bookingCoordinates[j].lng);
+
+      // ================================== Moving vehicle according to updated lat lng ================================ //
       carImageMarker.setPosition(latlng);
       this.bookingTravlledCoordinates.push({
         lat: this.bookingCoordinates[j].lat,
         lng: this.bookingCoordinates[j].lng
       });
+
+      // ================================== Showing path travelled by vehicle ======================================= //
       this.bookingTravelledPath = new google.maps.Polyline({
         path: this.bookingTravlledCoordinates,
         geodesic: true,
