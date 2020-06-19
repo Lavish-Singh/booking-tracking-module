@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { TrackingComponent } from './tracking/tracking.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TrackingComponent
   ],
   imports: [
     BrowserModule
