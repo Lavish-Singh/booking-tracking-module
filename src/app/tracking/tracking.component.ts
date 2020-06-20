@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { } from 'googlemaps';
 @Component({
   selector: 'app-tracking',
   templateUrl: './tracking.component.html',
   styleUrls: ['./tracking.component.css']
 })
-export class TrackingComponent implements OnInit {
+export class TrackingComponent implements AfterViewInit {
   @ViewChild('mapContainer', {}) gmap: ElementRef;
   public bookingTravelcounter = 0;
   public bookingTravelledPath;
@@ -120,7 +120,7 @@ export class TrackingComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.initMap();
   }
 
